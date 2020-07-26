@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    build: ./flask
+    volumes:
+      - ./flask:/app
+    ports:
+      - 5000:5000
+    links:
+      - db
+    tty: true
+
+  db:
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: flask
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      TZ: 'Asia/Tokyo'
+    ports:  
+      - 3306:3306
+    privileged: true
